@@ -1,0 +1,23 @@
+Possible modifications of the algorithm:
+
+1.  Test with other functions (with binary or n-ary inputs)
+2.  Initialization: random uniform, gaussian, triangular, etc
+    low/high spread of initial individuals throughout search space
+    population size
+3.  Vary CXPB, MUTPB
+4.  Types of CXPB
+5.  Types of MUTPB
+6.  Selection : change selection criterion, reduce pop size or keep it unchanged,
+    elitism, or make even some weak individuals survive to the next generation
+7.  Number of generations (can try e.g. many individuals-few generations vs few individuals-many generations)
+
+
+
+
+What to test?
+1.  How good is the solution (i.e how close to global minimum)?
+2.  How fast does it find the solution (number of iterations)?
+3.  How diverse are the solutions that I get in the end?
+4.  Do the above evaluations for different random seeds
+5.  How efficient is the solution computationally? (memory consumption, number of iterations to arrive to a 'good'
+    solution, execution time...)
