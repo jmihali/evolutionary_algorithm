@@ -13,7 +13,7 @@ generations = 20
 offspring = toolbox.select(pop, len(pop))
 ```
 
-##1. Not applying vs. applying crossover
+## 1. Not applying vs. applying crossover
 toolbox.register('mate', tools.cxTwoPoint)
 
 No crossover:
@@ -31,7 +31,7 @@ local minimum. My experiments showed that a CXPB of around 0.5-0-7 is a good cho
 too much, or setting it to 1 will most not produce good results (except if you have a very large initial 
 population).
 
-#Mutation
+# Mutation
 The following other operations and hyperparameters were used and are fixed throughout the experiment:
 ```python
 toolbox.register('attr_float', random.uniform, -512, 512)
@@ -43,7 +43,7 @@ CXPB = 0.3
 generations = 20
 offspring = toolbox.select(pop, len(pop))
 ```
-##1. Testing Gaussian Mutation
+## 1. Testing Gaussian Mutation
 ```python
 MUTPB = 0.5
 toolbox.register('mutate', tools.mutGaussian, mu=0, sigma=X, indpb=0.5)
@@ -65,7 +65,7 @@ SIGMA = 20
 Seems that increasing the variance of the mutation is a good remedy agains local minima. Similar
 to crossover, the more novelty we introduce to the algorithm the less likely it is to get stuck.
 
-##2. Testing shuffling mutation
+## 2. Testing shuffling mutation
 toolbox.register('mutate', tools.mutShuffleIndexes, indpb=0.5)
 
 MUTPB = 0.0
