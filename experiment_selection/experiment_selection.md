@@ -332,6 +332,9 @@ Comments: poor performance and slow.
 
     * Given the constant parameters tournament selection strategy 
       works alright for tournament size of 4 and 8 in this case.
+      
+    * It seems that the tournament selection converges quickly due to lack
+      of diversity preservation.
 
 * Many selection methods were unsuitable for our problem/data and thus performed
   poorly or completely randomly (i.e. selRoullete, selLexicase, selNSGA2, selRandom).
@@ -347,3 +350,9 @@ Comments: poor performance and slow.
     * Multi objective optimization: in addition to fitness add a dissimilarity/diversity
       objective (need to define a (dis)similarity measure, for example Euclidean distance) 
  
+ 
+ ## Further work
+ 
+ * computational cost analysis
+ * memory usage analysis
+ * selBest, selWorst with changing population sizes
