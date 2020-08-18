@@ -103,6 +103,21 @@ Best individual:  [7.91159515 7.99398148 8.11939953 7.58310227 7.89507131]
 
 Best fitness: -161.0299502863081
 
+### Sigma = 10000, MUTPB = 0.05
+
+Experiments with a score better than -120: 1/100
+
+Experiments with a score better than -150: 0/100
+
+Experiments with a score better than -170: 0/100
+
+Best experimental result:
+
+Best individual:  [7.68760211 7.45985791 8.27398174 7.52300274 7.83721169]
+
+Best fitness: -131.5014768122428
+
+
 ### Sigma = 0.4, MUTPB = 0.01
 
 Experiments with a score better than -120: 6/100
@@ -145,6 +160,20 @@ Best experimental result:
 Best individual:  [7.8805191  7.91593064 7.87952614 7.92052157 7.85330587]
 
 Best fitness: -174.01666157547197
+
+### Sigma = 0.4, MUTPB = 0.4
+
+Experiments with a score better than -120: 20/100
+
+Experiments with a score better than -150: 20/100
+
+Experiments with a score better than -170: 16/100
+
+
+Best experimental result:
+
+Best individual:  [7.93007125 7.94019998 7.95430737 7.85667116 7.89118557]
+Best fitness: -174.0522890506143
 
 ### Sigma = 0.4, MUTPB = 0.5
 

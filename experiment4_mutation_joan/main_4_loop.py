@@ -26,7 +26,8 @@ def alpine2(x):
 
 toolbox.register('evaluate', alpine2)
 toolbox.register('mate', tools.cxOnePoint)
-toolbox.register('mutate', tools.mutPolynomialBounded, eta=100, low=0, up=10, indpb=0.2)
+#toolbox.register('mutate', tools.mutPolynomialBounded, eta=1, low=0, up=10, indpb=0.2)
+toolbox.register('mutate', tools.mutGaussian, mu=0, sigma=0.4, indpb=0.2)
 toolbox.register('select', tools.selTournament, tournsize=3)
 
 
@@ -44,7 +45,7 @@ def run_evolution(seed):
     #       are crossed
     #
     # MUTPB is the probability for mutating an individual
-    CXPB, MUTPB = 0.0, 0.4
+    CXPB, MUTPB = 0.0, 0.05
 
     print('Start of evolution')
 
