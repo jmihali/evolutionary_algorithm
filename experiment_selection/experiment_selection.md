@@ -331,24 +331,36 @@ Comments: poor performance and slow.
     * Tournament size of 1 does poorly as expected (selecting a
       random candidate). Tournament size of 2 works. Increasing tournament
       size from 2 to 4 improves performance and convergence rate in generations.
+     
+    * Further increases above 4 or 8 tend to decrease performance. This could be
+      because increasing tournament size decreases randomness and thus diversity.
 
     * Increasing tournament size to 16, 32, and up doesn't improve performance
        in general and sometimes even decreases it by converging to a bad solution.
-       That said convergence speed in generations tends to increase with
-       tournament size increasing up to a limit.
+    
+    * Convergence speed in generations tends to increase with
+      tournament size increasing up to a limit. This could be explained by
+      larger tournaments allowing for the best individuals to be selected more
+      quickly.
+      
+    * Computational cost seems to increase with tournament size. A very rough
+    estimate could be that it takes 2-4x (maybe more) as much time to run selTrounament
+    method with tournament size of 32 compared to 1-8.
 
     * Given the constant parameters tournament selection strategy 
       works alright for tournament size of 4 and 8 in this case.
+
+* Many selection methods were unsuitable for our problem/data and thus performed
+  poorly or completely randomly (i.e. selRoullete, selLexicase, selNSGA2, selRandom).
+  These selection methods may be useful in conjunction with others, but not alone.
     
-* It is non trivial to converge to a good solution and have a lot of
-  diversification. Diversification tends to decrease with finding a 
-  good solution in a manner that isn't completely random. If there
-  is the global optimum is far from all the best local optima then this
-  makes sense, however if the global optima isn't much better than some
-  of the local optima then it would be desirable to keep a more diverse
-  population. Selection goal I'd say is to converge to an optimum 
-  while keeping diversification high for long enough so that the final
-  optima is close to the global one. Selection via tournament does this
-  pretty well, but could benefit from a mechanism to retain more diversity.
-  (Maybe this could be done via multi objective optimization, where in
-  addition to fitness also similarity is measured.) 
+* What is important for a good selection algorithm? My opinion: ability to
+  preserve some randomness/diversity, while also having a logical selection
+  mechanism to move towards a good solution in a way that makes sense/isn't
+  fully random.
+  * There are multiple ways to preserve more diversity, here are some ideas I think
+    might work:
+    * Parallel populations: POP_A = selTournament(POP_A, POP_B); POP_B = selRand(POP_B)
+    * Multi objective optimization: in addition to fitness add a dissimilarity/diversity
+      objective (need to define a (dis)similarity measure, for example Euclidean distance) 
+ 
