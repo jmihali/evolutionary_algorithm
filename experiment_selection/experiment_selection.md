@@ -196,23 +196,6 @@ Best fitness: -164.3661649324561
 Comments: This is the extreme case where population size =
 tournament size.
 
-###Conclusions
-
-* Strategy = selTournament(), where tournament size = 
-[1, 2, 3, 4, 8, 16, 32, 64, 128, 200]
-
-Tournament size of 1 does poorly as expected (selecting a
-random candidate). Tournament size of 2 works. Increasing tournament
-size from 2 to 4 improves performance and convergence rate in generations.
-
-Increasing tournament size to 16, 32, and up doesn't improve performance
-in general and sometimes even decreases it by converging to a bad solution.
-That said convergence speed in generations tends to increase with
-tournament size increasing up to a limit.
-
-Given the constant parameters tournament selection strategy 
-works alright for tournament size of 4 and 8 in this case.
-
 ###1.2. Tournament selection: selRoulette()
 
 Description: "Select k individuals from the input individuals using k spins of a roulette. The selection is made by looking only at the first objective of each individual. The list returned contains references to the input individuals."
