@@ -62,83 +62,35 @@ Best fitness: -172.7732086493284
 
 
 ## 2. Trying different crossover probabilities
-Two-point crossover is used all the time.
-### A) CXPB = 0.1
-Experiments with a score better than -120: 28/100
 
-Experiments with a score better than -150: 12/100
+### A) One-Point Crossover
 
-Experiments with a score better than -170: 0/100
+| CXPB | Score <-120 | Score<-150 | Score<-170 |  Time (sec) |
+|------|-------------|------------|------------|------------|
+| 0.1  | 10          | 1          | 0          | 0.059384   |
+| 0.3  | 18          | 7          | 0          | 0.068792   |
+| 0.5  | 29          | 13         | 0          | 0.077688   |
+| 0.7  | 39          | 12         | 0          | 0.076642   |
+| 0.9  | 46          | 18         | 1          | 0.083997   |
+| 1    | 50          | 24         | 1          | 0.091279   |
 
-Best experimental result:
+### B) Two-point crossover
 
-Best individual:  [8.09451845 7.89348504 7.87686263 8.05860273 7.85585365]
-Best fitness: -169.56525747241142
-
-### B) CXPB = 0.3
-Experiments with a score better than -120: 53/100
-
-Experiments with a score better than -150: 28/100
-
-Experiments with a score better than -170: 2/100
-
-Best experimental result:
-
-Best individual:  [7.88536829 7.85460983 7.80418729 8.03928177 7.95442421]
-Best fitness: -171.63425851600138
-
-### C) CXPB = 0.5
-Experiments with a score better than -120: 75/100
-
-Experiments with a score better than -150: 54/100
-
-Experiments with a score better than -170: 9/100
-
-Best experimental result:
-
-Best individual:  [7.89516325 7.99592407 8.0141505  7.9958452  7.87657612]
-Best fitness: -172.50272921308473
-
-### D) CXPB = 0.7
-Experiments with a score better than -120: 84/100
-
-Experiments with a score better than -150: 64/100
-
-Experiments with a score better than -170: 8/100
-
-Best experimental result:
-
-Best individual:  [7.91904247 7.88047332 7.8059047  7.85461895 7.95799066]
-Best fitness: -172.92613751496899
-
-
-### E) CXPB = 0.9
-Experiments with a score better than -120: 94/100
-
-Experiments with a score better than -150: 71/100
-
-Experiments with a score better than -170: 13/100
-
-Best experimental result
-
-### F) CXPB = 1
-
-Experiments with a score better than -120: 89/100
-
-Experiments with a score better than -150: 75/100
-
-Experiments with a score better than -170: 15/100
-
-Best experimental result:
-
-Best individual:  [7.95417318 7.88972461 7.87615728 7.94754165 7.81849585]
-Best fitness: -173.3480046377309
+| CXPB | Score <-120 | Score<-150 | Score<-170 | Time (sec) |
+|------|-------------|------------|------------|------------|
+| 0.1  | 28          | 12         | 0          | 0.058920   |
+| 0.3  | 53          | 28         | 2          | 0.067880   |
+| 0.5  | 75          | 54         | 9          | 0.074683   |
+| 0.7  | 84          | 64         | 8          | 0.084249   |
+| 0.9  | 94          | 71         | 13         | 0.091054   |
+| 1    | 89          | 75         | 15         | 0.089982   |
 
 ## Conclusions
-The experiments show that some kind of crossover are more successful in
+The experiments show that some kinds of crossover are more successful in
 our task than others, in terms of finding good solutions more frequently.
 From best to worst, they are ranked Uniform Crossover, Two-Point crossover and One-Point Crossover.
 
 Varying the crossover probability also had a high infuence in the results: increasing it
 makes the algorithm produce good results more frequently. Even CXPB = 1 turned to be perfectly fine;
-it actually proved to be the most effective.
+it actually proved to be the most effective. Increasing the crossover probability has the disadvantage 
+of increased execution time. This makes sense because more crossover operations are executed.
