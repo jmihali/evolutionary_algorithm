@@ -6,7 +6,7 @@ import time
 
 # General test configuration
 EXPERIMENT_RUNS = 1
-GENERATIONS_PER_TEST = 200
+GENERATIONS_PER_EXPERIMENT = 200
 
 # Hyperparameters
 PLOT_TITLE_EXTENSION = ", Parallel populations"
@@ -62,7 +62,7 @@ def run_evolution(seed):
     print(f'\t%{len(population_tournament) + len(population_random)} '
           f'individuals evaluated.')
 
-    for generation_index in range(1, GENERATIONS_PER_TEST + 1):
+    for generation_index in range(1, GENERATIONS_PER_EXPERIMENT + 1):
         print(f"\tGeneration {generation_index}")
 
         # Tournament selection on all population (parallel population)
