@@ -24,9 +24,9 @@ toolbox.register('select', tools.selTournament, tournsize=)
 def run_evolution(seed)
 ```
 
-##1. Selection strategies
+## 1. Selection strategies
 
-###1.1. Tournament selection: selTournament()
+### 1.1. Tournament selection: selTournament()
 
 Selection strategy: select the best individual among a randomly chosen set of individuals.
 
@@ -36,7 +36,7 @@ Parameters:
 * constant: k – The number of individuals to select.
 * constant: fit_attr – The attribute of individuals to use as selection criterion
 
-####1.1.1. tournament size = 1
+#### 1.1.1. tournament size = 1
 
 * Experiments with a score better than -120: 0/100
 * Experiments with a score better than -150: 0/100
@@ -48,7 +48,7 @@ Best fitness: -110.77666405599369
 
 ![alt text](Figure_1.png)
 
-####1.1.2. tournament size = 2
+#### 1.1.2. tournament size = 2
 
 * Experiments with a score better than -120: 56/100
 * Experiments with a score better than -150: 23/100
@@ -62,7 +62,7 @@ Best fitness: -167.58213900024774
 
 ![alt text](Figure_2.png)
 
-####1.1.3. tournament size = 3
+#### 1.1.3. tournament size = 3
 
 * Experiments with a score better than -120: 56/100
 * Experiments with a score better than -150: 33/100
@@ -76,7 +76,7 @@ Best fitness: -170.3375103892205
 
 ![alt text](Figure_3.png)
 
-####1.1.4. tournament size = 4
+#### 1.1.4. tournament size = 4
 
 * Experiments with a score better than -120: 58/100
 * Experiments with a score better than -150: 31/100
@@ -90,7 +90,7 @@ Best fitness: -171.18599315421577
 
 ![alt text](Figure_4.png)
 
-####1.1.5. tournament size = 8
+#### 1.1.5. tournament size = 8
 
 * Experiments with a score better than -120: 45/100
 * Experiments with a score better than -150: 15/100
@@ -104,7 +104,7 @@ Best fitness: -171.03430102782767
 
 ![alt text](Figure_5.png)
 
-####1.1.6. tournament size = 16
+#### 1.1.6. tournament size = 16
 
 * Experiments with a score better than -120: 29/100
 * Experiments with a score better than -150: 10/100
@@ -124,7 +124,7 @@ Why? Dont know. Looks like with tournament size of 16
 the first step arrives at a good solution and gets stuck.
 
 
-####1.1.7. tournament size = 32
+#### 1.1.7. tournament size = 32
 
 * Experiments with a score better than -120: 23/100
 * Experiments with a score better than -150: 4/100
@@ -142,7 +142,7 @@ Comments: Again the algorithm arrives quickly to a local
 optimum and gets stuck at a suboptimal solution. Even
 less suboptimal than with tournament size of 16.
 
-####1.1.8. tournament size = 64
+#### 1.1.8. tournament size = 64
 
 * Experiments with a score better than -120: 30/100
 * Experiments with a score better than -150: 12/100
@@ -161,7 +161,7 @@ slowly in generation than when tournament size was 32. Could feel that
 running this experiment took more time, than smaller tournament sizes,
 but need to do computation cost tests to get real results.
 
-####1.1.9. tournament size = 128
+#### 1.1.9. tournament size = 128
 
 * Experiments with a score better than -120: 25/100
 * Experiments with a score better than -150: 13/100
@@ -179,7 +179,7 @@ Comments: Could feel that running this experiment took more time,
 than smaller tournament sizes, but need to do computation cost tests
 to get real results.
 
-####1.1.10. tournament size = 200
+#### 1.1.10. tournament size = 200
 
 * Experiments with a score better than -120: 18/100
 * Experiments with a score better than -150: 6/100
@@ -196,7 +196,7 @@ Best fitness: -164.3661649324561
 Comments: This is the extreme case where population size =
 tournament size.
 
-###1.2. Tournament selection: selRoulette()
+### 1.2. Tournament selection: selRoulette()
 
 Description: "Select k individuals from the input individuals using k spins of a roulette. The selection is made by looking only at the first objective of each individual. The list returned contains references to the input individuals."
 
@@ -204,7 +204,17 @@ Does result in finding a better optimal point value over enough tests. TODO fini
 
 Suboptimal performance, often doesn't improve at all over 20 generations.
 
-###1.3. Tournament selection: selNSGA2()
+Experiments with a score better than -120: 6/100
+Experiments with a score better than -150: 3/100
+Experiments with a score better than -170: 0/100
+
+Best experimental result
+Best individual:  [8.05938382 7.89372943 7.65951997 7.9500036  7.80095938]
+Best fitness: -165.84445107381654
+
+![alt text](roulette.png)
+
+### 1.3. Tournament selection: selNSGA2()
 
 Description: "Apply NSGA-II selection operator on the individuals. Usually, the size of individuals will be larger than k because any individual present in individuals will appear in the returned list at most once. Having the size of individuals equals to k will have no effect other than sorting the population according to their front rank. The list returned contains references to the input individuals. For more details on the NSGA-II operator see [Deb2002]."
 
@@ -223,7 +233,7 @@ Best fitness: -161.19561899610366
 Comments: Poor performance over most of the runs.
 Best case run is also not that good.
 
-###1.4. Tournament selection: selRandom()
+### 1.4. Tournament selection: selRandom()
 
 Description: "Select k individuals at random from the input individuals with replacement. The list returned contains references to the input individuals."
 
@@ -242,7 +252,7 @@ Best fitness: -110.77666405599369
 Comments: poor performance as expected.
 
 
-###1.5. Tournament selection: selBest()
+### 1.5. Tournament selection: selBest()
 
 Description: "Select the k best individuals among the input individuals. The list returned contains references to the input individuals."
 
@@ -264,7 +274,7 @@ find a lot better solution in a 100 generations. Average fitnes
 doesn't converge, probably the population stays dense and this
 method and its parameters are similar to a random search.
 
-###1.6. Tournament selection: selWorst()
+### 1.6. Tournament selection: selWorst()
 
 Description: "Select the k worst individuals among the input individuals. The list returned contains references to the input individuals."
 
@@ -288,7 +298,7 @@ search, where the strategy in this case defines a type of a
 randomness.
 
 
-###1.7. Tournament selection: selLexicase 
+### 1.7. Tournament selection: selLexicase 
 
 Description: "Returns an individual that does the best on the fitness cases when considered one at a time in random order. http://faculty.hampshire.edu/lspector/pubs/lexicase-IEEE-TEC.pdf"
 
@@ -305,6 +315,7 @@ Best fitness: -143.8603768111893
 ![alt text](Figure_15.png)
 
 Comments: poor performance and slow.
+
 
 ## Conclusion
 

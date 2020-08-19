@@ -135,10 +135,24 @@ if __name__ == '__main__':
     num_fit120 = 0
     num_fit150 = 0
     num_fit170 = 0
+<<<<<<< HEAD
     total_exp = NO_OF_TEST_RUNS
+=======
+    total_exp = 100
+    cnt = 0
+    seed = 0
+>>>>>>> fb744351f2749845b18c56e8cc90cc52e0303858
     best_best_fitness = [0]
-    for seed in range(total_exp):
-        logbook, best_ind = run_evolution(seed)
+    while seed < total_exp:
+        print('SEED', seed)
+        try:
+            logbook, best_ind = run_evolution(seed)
+            cnt+=1
+        except:
+            print('SEED %d gives error', seed)
+            total_exp += 1
+
+        seed+=1
 
         global_min = -np.power(2.808, DIMENSIONS) # attention: hard coded
 
@@ -161,10 +175,10 @@ if __name__ == '__main__':
             best_best_ind = best_ind
 
     print('================================================================')
-
-    print('Experiments with a score better than -120: %d/%d' % (num_fit120, total_exp))
-    print('Experiments with a score better than -150: %d/%d' % (num_fit150, total_exp))
-    print('Experiments with a score better than -170: %d/%d' % (num_fit170, total_exp))
+    print('CNT', cnt)
+    print('Experiments with a score better than -120: %d/%d' % (num_fit120, cnt))
+    print('Experiments with a score better than -150: %d/%d' % (num_fit150, cnt))
+    print('Experiments with a score better than -170: %d/%d' % (num_fit170, cnt))
 
     print('\nBest experimental result')
     print('Best individual: ', best_best_ind)
