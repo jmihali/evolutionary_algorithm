@@ -5,17 +5,19 @@ import matplotlib.pyplot as plt
 import time
 
 # General test configuration
-EXPERIMENT_RUNS = 1
-GENERATIONS_PER_EXPERIMENT = 200
+EXPERIMENT_RUNS = 100
+GENERATIONS_PER_EXPERIMENT = 20
 
 # Hyperparameters
-PLOT_TITLE_EXTENSION = ", Parallel populations"
 CROSSOVER_PROBABILITY = 1.0
 MUTATION_SIGMA = 0.4
 MUTATION_PROBABILITY = 0.9
-POPULATION_SIZE_TOURNAMENT = 200
-POPULATION_SIZE_RANDOM = 10
+POPULATION_SIZE_TOURNAMENT = 198
+POPULATION_SIZE_RANDOM = 2
 TOURNAMENT_SIZE = 4  # TODO(valters) Transform into a percentage of population size.
+PLOT_TITLE_EXTENSION = f", Parallel populations ({POPULATION_SIZE_TOURNAMENT} " \
+                       f"|| {POPULATION_SIZE_RANDOM})"
+VERBOSITY = 0
 
 # Optimization configuration
 OBJECTIVE_DIMENSIONS = 5
@@ -45,7 +47,7 @@ toolbox.register('select_tournament', tools.selTournament, tournsize=TOURNAMENT_
 toolbox.register('select_random', tools.selRandom)
 
 
-def run_evolution(seed):
+def run_evolution(seed, verbosity=0):
     random.seed(seed)
     logbook = tools.Logbook()  # uUsed to store statistics.
 
@@ -53,27 +55,31 @@ def run_evolution(seed):
     population_tournament = toolbox.population(n=POPULATION_SIZE_TOURNAMENT)
     population_random = toolbox.population(n=POPULATION_SIZE_RANDOM)
 
-    print("----- Start of evolution -----")
+    if verbosity > 0:
+        print("----- Start of evolution -----")
+
     # Evaluate both populations
     for population in [population_tournament, population_random]:
         fitness = list(map(toolbox.evaluate, population))
         for individual, individual_fitness in zip(population, fitness):
             individual.fitness.values = individual_fitness
-    print(f'\t%{len(population_tournament) + len(population_random)} '
-          f'individuals evaluated.')
+    if verbosity > 0:
+        print(f'\t%{len(population_tournament) + len(population_random)} '
+              f'individuals evaluated.')
 
     for generation_index in range(1, GENERATIONS_PER_EXPERIMENT + 1):
-        print(f"\tGeneration {generation_index}")
+        if verbosity > 0:
+            print(f"\tGeneration {generation_index}")
 
         # Tournament selection on all population (parallel population)
         total_population = population_tournament + population_random
         offsprings_tournament = toolbox.select_tournament(total_population,
-                                                         len(population_tournament))
+                                                          len(population_tournament))
         offsprings_tournament = list(map(toolbox.clone, offsprings_tournament))
 
         # Random selection from population_random (parallel population)
         offsprings_random = toolbox.select_random(population_random,
-                                                 len(population_random))
+                                                  len(population_random))
         offsprings_random = list(map(toolbox.clone, offsprings_random))
 
         for offsprings in [offsprings_tournament, offsprings_random]:
@@ -87,15 +93,20 @@ def run_evolution(seed):
             for mutant in offsprings:
                 if random.random() < MUTATION_PROBABILITY:
                     toolbox.mutate(mutant)
+                    for i, mutant_x in enumerate(mutant):
+                        if mutant_x < 0:
+                            mutant[i] = 0
+                        elif mutant_x > 10:
+                            mutant[i] = 10
                     del mutant.fitness.values
 
             # Evaluate the individuals with an invalid fitness.
             invalid_fitness_individuals = [individual for individual in offsprings
-                           if not individual.fitness.valid]
+                                           if not individual.fitness.valid]
             fitness = map(toolbox.evaluate, invalid_fitness_individuals)
             for individual, individual_fitness in zip(invalid_fitness_individuals, fitness):
                 individual.fitness.values = individual_fitness
-            print(f'\tEvaluated {len(invalid_fitness_individuals)} individuals.')
+            # print(f'\tEvaluated {len(invalid_fitness_individuals)} individuals.')
 
         population_tournament[:] = offsprings_tournament
         population_random[:] = offsprings_random
@@ -112,15 +123,16 @@ def run_evolution(seed):
         best_individual = tools.selBest(total_population, 1)[0]
         logbook.record(gen=generation_index, best_ind=best_individual, **record)
 
-        print('  Min fit %s' % logbook.select('min')[-1])
-        print('  Max fit %s' % logbook.select('max')[-1])
-        print('  Avg fit %s' % logbook.select('avg')[-1])
-        print('  Std fit %s' % logbook.select('std')[-1])
-
-    print('----- End of a (successful) evolution -----')
+        if verbosity > 1:
+            print('  Min fit %s' % logbook.select('min')[-1])
+            print('  Max fit %s' % logbook.select('max')[-1])
+            print('  Avg fit %s' % logbook.select('avg')[-1])
+            print('  Std fit %s' % logbook.select('std')[-1])
 
     best_individual = tools.selBest(total_population, 1)[0]
-    print('Best individual is %s, %s' % (best_individual, best_individual.fitness.values))
+    if verbosity > 0:
+        print('----- End of a (successful) evolution -----')
+        print('Best individual is %s, %s' % (best_individual, best_individual.fitness.values))
 
     return logbook, best_individual
 
@@ -132,7 +144,7 @@ if __name__ == "__main__":
     overall_best_fitness = [0]
 
     for seed in range(EXPERIMENT_RUNS):
-        logbook, best_individual = run_evolution(seed)
+        logbook, best_individual = run_evolution(seed, verbosity=VERBOSITY)
         global_min = -np.power(2.808, OBJECTIVE_DIMENSIONS)
 
         generation, avg_fitness, experiment_best_fitness = logbook.select('gen', 'avg', 'min')
@@ -148,6 +160,7 @@ if __name__ == "__main__":
             overall_best_fitness = experiment_best_fitness
             best_avg_fitness = avg_fitness
             overall_best_individual = best_individual
+        print(f"Experiment {seed + 1} . . .\t\t experiments best fitness {experiment_best_fitness[-1]}")
 
     print('================================================================')
 
@@ -155,9 +168,9 @@ if __name__ == "__main__":
     print('* Experiments with a score better than -150: %d/%d' % (num_fit150, EXPERIMENT_RUNS))
     print('* Experiments with a score better than -170: %d/%d' % (num_fit170, EXPERIMENT_RUNS))
 
-    print('\nBest experimental result')
-    print('Best individual: ', overall_best_individual)
-    print('Best fitness:', overall_best_fitness[-1])
+    print('\n\nBest experimental result')
+    print('\nBest individual: ', overall_best_individual)
+    print('\nBest fitness:', overall_best_fitness[-1])
 
     # Ploting
     global_min = -np.power(2.808, OBJECTIVE_DIMENSIONS)
