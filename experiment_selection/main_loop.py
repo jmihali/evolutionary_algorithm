@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+NO_OF_TEST_RUNS = 100
+
 DIMENSIONS = 5
 NUM_OF_GENERATIONS = 20
 
@@ -26,12 +28,12 @@ def alpine2(x):
     return -np.prod(tmp),
 
 TURN_SIZE = "NA"
-STRATEGY = "sortLogNondominated"
+STRATEGY = "selRoulette"
 toolbox.register('evaluate', alpine2)
 toolbox.register('mate', tools.cxTwoPoint)
 toolbox.register('mutate', tools.mutGaussian, mu=0, sigma=0, indpb=0.2)
 # toolbox.register('select', tools.selTournament, tournsize=TURN_SIZE)
-toolbox.register('select', tools.sortLogNondominated)
+toolbox.register('select', tools.selRoulette)
 
 
 # ----------
@@ -133,7 +135,7 @@ if __name__ == '__main__':
     num_fit120 = 0
     num_fit150 = 0
     num_fit170 = 0
-    total_exp = 100
+    total_exp = NO_OF_TEST_RUNS
     best_best_fitness = [0]
     for seed in range(total_exp):
         logbook, best_ind = run_evolution(seed)
