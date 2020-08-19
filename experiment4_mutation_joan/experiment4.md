@@ -18,6 +18,21 @@ CXPB = 0.0
 ## Trying Gaussian Mutation
 indpb=0.2
 
+### Sigma = 0.0001, MUTPB = 0.05
+
+Experiments with a score better than -120: 1/100
+
+Experiments with a score better than -150: 0/100
+
+Experiments with a score better than -170: 0/100
+
+
+Best experimental result:
+
+Best individual:  [7.68760211 7.45991805 8.27374169 7.52347948 7.83720263]
+Best fitness: -131.5430826039821
+
+
 ### Sigma = 0.1, MUTPB = 0.05
 
 Experiments with a score better than -120: 6/100
@@ -209,6 +224,23 @@ Parameters to fix:
 * Low and Up - the boundaries of the search space, I fixed them to 0 and 10
 MUTPB = 0.4
 
+### Eta = -1000 (High variance)
+
+Experiments with a score better than -120: 1/100
+
+Experiments with a score better than -150: 0/100
+
+Experiments with a score better than -170: 0/100
+
+
+Best experimental result:
+
+Best individual:  [7.68760211 7.45985791 8.27398174 7.52300274 7.83721169]
+Best fitness: -131.5014768122428
+
+
+
+
 ### Eta = 0.1
 
 Experiments with a score better than -120: 62/100
@@ -266,10 +298,29 @@ Best experimental result:
 Best individual:  [7.89827942 7.91740447 7.85053078 7.90641729 7.85433147]
 Best fitness: -173.84068402798127
 
+### Eta = 1000 (low variance)
+
+Experiments with a score better than -120: 3/100
+
+Experiments with a score better than -150: 0/100
+
+Experiments with a score better than -170: 0/100
+
+
+Best experimental result:
+
+Best individual:  [7.70482132 7.58629519 8.23699607 7.55126684 7.85378922]
+
+Best fitness: -142.67736357921183
+
 Observation: Similarly to the Gaussian mutation, increasing the variance of the mutation leads to a more effective
 optimization, because you introduce more variety to the population.
 
+Having a super high or a super low variance are both bad. In the first case, good solutions are destroyed. In the latter,
+there will be no diversity.
+
 ## Testing Shuffle Indexes mutation
+
 MUTPB = 0.4
 
 Experiments with a score better than -120: 1/100
