@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+NO_OF_TEST_RUNS = 100
+
 DIMENSIONS = 5
 NUM_OF_GENERATIONS = 20
 
@@ -26,7 +28,7 @@ def alpine2(x):
     return -np.prod(tmp),
 
 TURN_SIZE = "NA"
-STRATEGY = "sortLogNondominated"
+STRATEGY = "selRoulette"
 toolbox.register('evaluate', alpine2)
 toolbox.register('mate', tools.cxTwoPoint)
 toolbox.register('mutate', tools.mutGaussian, mu=0, sigma=0, indpb=0.2)
@@ -133,9 +135,13 @@ if __name__ == '__main__':
     num_fit120 = 0
     num_fit150 = 0
     num_fit170 = 0
+<<<<<<< HEAD
+    total_exp = NO_OF_TEST_RUNS
+=======
     total_exp = 100
     cnt = 0
     seed = 0
+>>>>>>> fb744351f2749845b18c56e8cc90cc52e0303858
     best_best_fitness = [0]
     while seed < total_exp:
         print('SEED', seed)

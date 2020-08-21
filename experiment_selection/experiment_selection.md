@@ -200,7 +200,9 @@ tournament size.
 
 Description: "Select k individuals from the input individuals using k spins of a roulette. The selection is made by looking only at the first objective of each individual. The list returned contains references to the input individuals."
 
-Bad performance, often doesn't improve at all over 20 generations.
+Does result in finding a better optimal point value over enough tests. TODO finish this
+
+Suboptimal performance, often doesn't improve at all over 20 generations.
 
 Experiments with a score better than -120: 6/100
 Experiments with a score better than -150: 3/100
